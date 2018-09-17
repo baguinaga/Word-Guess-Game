@@ -7,18 +7,48 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/css/style.css">
   <title> Word Guessing Game</title>
 </head>
 
 <body>
-  <header></header>
-  <div class="container row">
-    <div class="row">
-      <div class="col-12 col-md-6" id="gameWord"></div>
-      <div class="col-12 col-md-6" id="gameGuess"></div>
+  <header>
+
+  </header>
+
+  <div class="container">
+    <div class="row d-flex justify-content-around">
+
+      <div class="col-12 col-md-5 card bg-light mb-3">
+        <h4 class="card-header">Hidden Word:</h4>
+        <div class="card-body">
+          <h1 class="card-title text-center" id=gameWord></h1>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-5 card bg-light mb-3">
+        <h4 class="card-header">Wins:&nbsp;<span id=gameWins>0</span>&nbsp;Losses:&nbsp;<span id=gameLosses>0</span></h4>
+        <div class="card-body">
+          <h5 class="card-title">You have&nbsp; <span id="gameLives"></span> &nbsp;guesses remaining.</h5>
+          <h5 class="card-title">Your past guesses are:&nbsp; <span id="gameGuesses"></span></h5>
+        </div>
+      </div>
+
     </div>
-    <div class="col-12" id="gameInstructions"></div>
+
+    <div class="row card bg-light mb-3">
+      <h4 class="card-header">Instructions</h4>
+      <div class="card-body">
+        <h5 class="card-title" id="gameMessage"></h5>
+        <p class="card-text"> The rules are as follows:</p>
+        <ul class="card-text">
+          <li> I'm thinking of a word with no special characters. Only letters will be accepted as guesses. </li>
+          <li> I will list all of your past guesses.</li>
+          <li> You only have 10 chances to guess the word correctly. </li>
+        </ul>
+      </div>
+    </div>
+
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
