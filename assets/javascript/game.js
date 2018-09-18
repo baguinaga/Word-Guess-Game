@@ -87,7 +87,6 @@ document.onkeyup = function (e) {
     if (wordArr.includes(userKey) && !wrongGuesses.includes(userKey)) {
       wordReveal(wordArr, wordHidden, userKey);
       wrongGuesses.push(userKey);
-      lives--;
       if (!wordHidden.includes("_")) {
         messageHTML.textContent = "Congratulations, you won! Press Enter to play again.";
         wins++;
@@ -124,5 +123,8 @@ document.onkeyup = function (e) {
   livesHTML.textContent = lives;
   guessesHTML.textContent = wrongGuesses.join(" ");
 
+  if (gameState === false) {
+    wordHTML.textContent = wordArr.join(" ");
+  }
   console.log(wordHidden);
 }
