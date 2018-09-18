@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: url(../images/oriental.png);
+}
+
+.jumbotron {
+  background-color: white;
+  opacity: 0.85;
+  padding: 3%;
+}
+
+.card {
+  opacity: 0.85;
+}

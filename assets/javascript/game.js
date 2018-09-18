@@ -17,9 +17,12 @@ var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
 
 //javascript variables
 var wordArr = wordRandom();
-console.log(wordArr);
-
+var wordHidden = "_".repeat(wordArr.length).split("")
 var wrongGuesses = [];
+
+console.log(wordArr);
+console.log(wordHidden);
+
 var lives = 10;
 var wins = 0;
 var losses = 0;
@@ -34,55 +37,92 @@ var guessesHTML = document.getElementById("gameGuesses");
 var messageHTML = document.getElementById("gameMessage");
 
 //functions
-//random word function, used to store temp random word to wordArr
+
+//random word function, used to store temp random word to wordArr as an array
 function wordRandom() {
   return wordList[Math.floor(Math.random() * wordList.length)].split("");
 }
 
-//function used to convert temp random word into hidden word and reveal guessed characters
-function wordHidden(arr, str) {
-  var wordDash = "_".repeat(arr.length).split("");
+// function used to check the userinput array agaisnt the key array and modify the container array
 
-  for (var i = 0; i < arr.length; i++) {
-    if (arr[i] === str) {
-      wordDash[i] = arr[i];
-    }
-  }
-  return wordDash;
+function wordReveal(key, container, input) {
+  for (var i = 0; i < key.length; i++) {
+    if (key[i] === input) {
+      container[i] = key[i];
+    };
+  };
 }
 
-//setting initial HTML/js values
+
+//re-setting initial HTML/js values
+
 function resetGame() {
   wordArr = wordRandom();
-  wordHTML.textContent = wordHidden(wordArr, "").join(" ");
+  wordHidden = "_".repeat(wordArr.length).split("");
   lives = 10;
-  livesHTML.textContent = lives;
+  gameState = true;
   wrongGuesses = [];
-  guessesHTML.textContent = wrongGuesses.join("");
+  livesHTML.textContent = lives;
+  wordHTML.textContent = wordHidden.join(" ");
+  guessesHTML.textContent = wrongGuesses.join(" ");
   messageHTML.textContent = "Can you guess the hidden word?";
 }
 
-resetGame();
-
 //testing console.log
-console.log(wordHidden(wordArr, "a"), wordArr);
+console.log(wordHidden, wordArr);
+
+wordHTML.textContent = wordHidden.join(" ");
 
 //event function, testing for matching letter and runnign game logic
 document.onkeyup = function (e) {
+  //define user input at userkey
   var userKey = e.key;
-  if (letters.includes(userKey)) {
-    if (wordArr.includes(userKey) && wordHidden(wordArr, userKey).includes("_")) {
-      wordArrTemp = wordHidden(wordArr, userKey);
-      wordHTML.textContent = wordHidden(wordArrTemp, userKey);
-    } 
-  } else {
-    messageHTML.textContent = "That's not a letter. Try again.";
-  }
-}
 
-/* did the user input a correct character?
-yes = run game logic no = try again message
-is the game still ongoing?
-  yes -> run game logic
-  no ->  
-*/
+  //check to see if userKey is a letter
+
+
+  if (letters.includes(userKey) && gameState === true) {
+    messageHTML.textContent = "Can you guess the hidden word?"
+    //check to see if usey key is located in 
+    if (wordArr.includes(userKey) && !wrongGuesses.includes(userKey)) {
+      wordReveal(wordArr, wordHidden, userKey);
+      wrongGuesses.push(userKey);
+      lives--;
+      if (!wordHidden.includes("_")) {
+        messageHTML.textContent = "Congratulations, you won! Press Enter to play again.";
+        wins++;
+        gameState = false;
+      } else if (lives === 0) {
+        messageHTML.textContent = "You lost. Press Enter to play again.";
+        losses++;
+        gameState = false;
+      }
+    } else if (wrongGuesses.includes(userKey)) {
+      messageHTML.textContent = "You've tried that letter before... Try again.";
+    } else if (!wordArr.includes(userKey)) {
+      wrongGuesses.push(userKey);
+      lives--;
+      if (lives === 0) {
+        messageHTML.textContent = "You lost. Press Enter to play again.";
+        losses++;
+        gameState = false;
+      }
+    }
+  } else if (userKey === "Enter" & gameState === false) {
+    resetGame();
+    console.log(wordArr, wordHidden);
+  } else {
+    messageHTML.textContent = "That's not a letter. Sorry, try again.";
+      if (gameState === false) {
+        messageHTML.textContent = "Press the Enter key to play again.";
+      }
+  }
+
+  wordHTML.textContent = wordHidden.join(" ");
+  winsHTML.textContent = wins;
+  lossesHTML.textContent = losses;
+  livesHTML.textContent = lives;
+  guessesHTML.textContent = wrongGuesses.join(" ");
+
+  console.log(wordHidden);
+}

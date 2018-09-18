@@ -12,8 +12,11 @@
 </head>
 
 <body>
-  <header>
-
+  <header class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-3">The Word Guessing Game</h1>
+      <p class="lead">It's just like hangman except without the, you know, hanging man. </p>
+    </div>
   </header>
 
   <div class="container">
@@ -29,7 +32,7 @@
       <div class="col-12 col-md-5 card bg-light mb-3">
         <h4 class="card-header">Wins:&nbsp;<span id=gameWins>0</span>&nbsp;Losses:&nbsp;<span id=gameLosses>0</span></h4>
         <div class="card-body">
-          <h5 class="card-title">You have&nbsp; <span id="gameLives"></span> &nbsp;guesses remaining.</h5>
+          <h5 class="card-title">You have&nbsp; <span id="gameLives"> 10 </span> &nbsp;guesses remaining.</h5>
           <h5 class="card-title">Your past guesses are:&nbsp; <span id="gameGuesses"></span></h5>
         </div>
       </div>
@@ -37,13 +40,13 @@
     </div>
 
     <div class="row card bg-light mb-3">
-      <h4 class="card-header">Instructions</h4>
+      <h4 class="card-header">Instructions:</h4>
       <div class="card-body">
-        <h5 class="card-title" id="gameMessage"></h5>
+        <h3 class="card-title text-center" id="gameMessage">Can you guess the hidden word?</h3>
         <p class="card-text"> The rules are as follows:</p>
         <ul class="card-text">
           <li> I'm thinking of a word with no special characters. Only letters will be accepted as guesses. </li>
-          <li> I will list all of your past guesses.</li>
+          <li> I will list all of your past guesses. Don't worry you won't lose a guess if you make a mistake.</li>
           <li> You only have 10 chances to guess the word correctly. </li>
         </ul>
       </div>
